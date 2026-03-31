@@ -20,7 +20,7 @@ Implementar um sistema de mensageria assíncrona usando **RabbitMQ** para proces
 ```bash
 docker compose up -d --build
 ```
-# 2. Acessar os serviços
+## 2. Acessar os serviços
 
 | Serviço              | URL                             |
 | --------             | --------------------------------| 
@@ -28,36 +28,44 @@ docker compose up -d --build
 | RabbitMQ Management  | http://192.168.1.198:15672      | 
 | PostgreSQL           | localhost:5432                  |
 
-# 3. Testar
+## 3. Testar
 
 - Enviar pedido de teste: **docker exec -it api-mensageria python producer.py**
 - Consultar pedidos: http://192.168.1.198:8000/orders
 - Consultar pedido específico: http://192.168.1.198:8000/orders/ORD-2025-0001
 
-# ✅ Entregáveis Cumpridos
+## ✅ Entregáveis Cumpridos
 
-- ## Consumidor RabbitMQ processando mensagens
-- ## Persistência em banco relacional (tabelas: **pedido**, **cliente**, **produto**, **item_pedido**)
-- ## Registro automático de **indexed_at**
-- ## API RESTful com paginação, orgenação e filtros
-- ## Payload de resposta
-- ## Cálculo dinâmico de **total** do pedido e de cada item
-- ## Docker Compose completo
-- ## DER do banco (ver pasta docs/DER.png)
+- [x] **Consumidor RabbitMQ:** processando mensagens ativamente.
+- [x] **Persistência Relacional:** banco estruturado com tabelas `pedido`, `cliente`, `produto` e `item_pedido`.
+- [x] **Registro Automático:** campo `indexed_at` gravado na inserção.
+- [x] **API RESTful:** endpoints configurados com paginação, ordenação e filtros.
+- [x] **Payload de Resposta:** retorno formatado estritamente conforme o modelo do PDF.
+- [x] **Cálculo Dinâmico:** `total` do pedido e de cada item calculados via código.
+- [x] **Docker Compose:** orquestração completa dos containers.
+- [x] **Modelagem de Dados:** diagrama DER documentado.
 
-# 📊 DER do Banco de Dados
+---
 
-<img src="docs/DER.png" alt="DER">
+## 📊 DER do Banco de Dados
 
-# 📁 Estrutura do Projeto
+![Diagrama Entidade Relacionamento](docs/DER.png)
 
+*(Caso a imagem não carregue acima, [clique aqui para visualizar o DER](docs/DER.png))*
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
 projeto-mensageria/
 ├── app/
 │   ├── main.py
 │   ├── producer.py
 │   ├── Dockerfile
 │   ├── requirements.txt
-│   └── database/init.sql
+│   └── database/
+│       └── init.sql
 ├── docker-compose.yml
 ├── README.md
 └── docs/
