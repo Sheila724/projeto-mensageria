@@ -22,17 +22,27 @@ docker compose up -d --build
 
 | Serviço              | URL                             |
 | --------             | --------------------------------| 
-| API (Swagger)        | http://192.168.1.198:8000/docs  | 
-| RabbitMQ Management  | http://192.168.1.198:15672      | 
+| API (Swagger)        | http://localhost/docs  | 
+| RabbitMQ Management  | http://localhost:15672      | 
 | PostgreSQL           | localhost:5432                  |
 
 ## 3. Testar
 
 - Enviar pedido de teste: **docker exec -it api-mensageria python producer.py**
-- Consultar pedidos: http://192.168.1.198:8000/orders
-- Consultar pedido específico: http://192.168.1.198:8000/orders/ORD-2025-0001
+- Consultar pedidos: http://localhost:8000/orders
+- Consultar pedido específico: http://localhost/orders/ORD-2025-0001
 
-## ✅ Entregáveis Cumpridos
+## 4. Teste de carga e Monitoramento em Tempo Real
+
+O grande diferencial deste projeto é a validação de resiliência. Para estressar a arquitetura e validar o comportamento do broker, o repositório inclui um script de disparo em lotes e um monitor dedicado.
+
+ - Iniciar o monitor da fila (em um terminal separado): docker exec -it api-mensageria python monitor.py
+
+- Executar o script de teste de estresse: docker exec -it api-mensageria python stress_test.py
+
+Resultado: O sistema é capaz de processar envios de 10.000 mensagens por vez. Durante os testes, o RabbitMQ chegou a enfileirar mais de 184 mil requisições, mantendo a estabilidade da taxa de consumo e a resiliência do worker enquanto o monitor exibia o status da fila em tempo real.
+
+## ✅ Entregas realizadas com este projeto
 
 - [x] **Consumidor RabbitMQ:** processando mensagens ativamente.
 - [x] **Persistência Relacional:** banco estruturado com tabelas `pedido`, `cliente`, `produto` e `item_pedido`.
@@ -60,6 +70,8 @@ projeto-mensageria/
 ├── app/
 │   ├── main.py
 │   ├── producer.py
+│   ├── producer_auto.py
+|   ├── monitor.queue.py
 │   ├── Dockerfile
 │   ├── requirements.txt
 │   └── database/
