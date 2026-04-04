@@ -1,7 +1,5 @@
 # Projeto Mensageria
 
-**Disciplina:** Computação em Nuvem II
-
 ## 🎯 Objetivo
 
 Implementar um sistema de mensageria assíncrona usando **RabbitMQ** para processar pedidos de um marketplace, persistindo os dados em banco relacional PostgreSQL e expondo uma API RESTful para consulta.
