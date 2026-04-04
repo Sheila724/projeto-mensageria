@@ -1,4 +1,4 @@
-# Projeto Mensageria - Fatec
+# Projeto Mensageria
 
 **Disciplina:** Computação em Nuvem II
 
